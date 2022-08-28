@@ -5,12 +5,18 @@ import java.util.Scanner;
 public class Main {
     //棋盘
     public static String[][] GoBang = new String[15][15];
+    //判断是不是黑色方移动
     public static boolean isBlackMove = true;
+    //整个棋盘的棋子数量
     public static int piece_count = 0;
+    //用于接收玩家输入坐标
     public static Scanner inputManager = new Scanner(System.in);
-
+ 
+    //黑色棋子
     public static final String BLACKPIECE = "●";
+    //白色棋子
     public static final String WHITEPIECE = "○";
+    //空位
     public static final String CLEARPIECE = "+";
 
     public static void main(String[] args)
@@ -100,6 +106,7 @@ public class Main {
 
     public static boolean isWin(int x,int y)
     {
+        //用于记录已经判断过的棋子数量
         int count = 1;
         int findCount = 1;
         int tempX = x;
@@ -108,17 +115,22 @@ public class Main {
         //左切角
         while (true)
         {
+            //最多的情况一个方向有四个或以上的相连
             for (int value = 1;value<=4;value++)
             {
+                //防止超出数组的索引
                 if ((tempX - value != -1) && (tempY - value != -1))
                 {
+                    //如果是同类型的棋子
                     if (GoBang[tempX - value][tempY - value].equals(PIECE))
                     {
+                        //相连数+1，已经进行判断的数量+1
                         findCount += 1;
                         count += 1;
                     }
                     else
                     {
+                        //如果不是同类型棋子则代表被不同颜色的棋子或空位截断，把被截断的数量添加到已判断的棋子数量.
                         count += ((4 - value + 1));
                         break;
                     }
@@ -128,11 +140,13 @@ public class Main {
                     count += ((4 - value + 1));
                     break;
                 }
+                //如果这个方向已经有5个棋子，返回true，游戏胜利。
                 if (findCount >= 5)
                 {
                     return true;
                 }
             }
+            //左切角的另一个方向，原理相同不再赘述。
             for (int value = 1;value<=4;value++)
             {
                 if ((tempX + value != 15) && (tempY + value != 15))
@@ -164,7 +178,7 @@ public class Main {
                 break;
             }
         }
-
+ 
         //右切角
         while (true)
         {
@@ -224,7 +238,7 @@ public class Main {
                 break;
             }
         }
-
+ 
         //上下
         while (true)
         {
@@ -284,7 +298,7 @@ public class Main {
                 break;
             }
         }
-
+ 
         //左右
         while (true)
         {
@@ -344,6 +358,7 @@ public class Main {
                 break;
             }
         }
+        //否则游戏继续
         return false;
     }
 
