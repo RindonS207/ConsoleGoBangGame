@@ -3,7 +3,7 @@ package rindong.project;
 import java.util.Scanner;
 
 public class Main {
-
+    //棋盘
     public static String[][] GoBang = new String[15][15];
     public static boolean isBlackMove = true;
     public static int piece_count = 0;
